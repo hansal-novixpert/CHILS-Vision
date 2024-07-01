@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { CdkApiDeviceStack } from '../lib/cdk-api-device-stack';
+import { CdkApiUserStack } from '../lib/cdk-api-user-stack';
 
 const app = new cdk.App();
-new CdkApiDeviceStack(app, 'CdkApiDeviceStack', {
+new CdkApiUserStack(app, 'CdkApiUserStack', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */

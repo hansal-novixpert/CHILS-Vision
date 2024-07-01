@@ -1,16 +1,16 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
 
-export class CdkApiDeviceStack extends cdk.Stack {
+export class CdkApiUserStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     //defining dynamodb table
-    const deviceTable = cdk.aws_dynamodb.Table.fromTableName(this, 'deviceTable', 'Device');
+    const userTable = cdk.aws_dynamodb.Table.fromTableName(this, 'userTable', 'User');
+
     //creating our api
     const api = new cdk.aws_apigateway.RestApi(this, 'apiTest', {
-      restApiName: 'restApiForDeviceTest',
+      restApiName: 'restApiForUserTest',
       defaultCorsPreflightOptions: {
         allowOrigins: cdk.aws_apigateway.Cors.ALL_ORIGINS,
         allowMethods: cdk.aws_apigateway.Cors.ALL_METHODS,
@@ -35,34 +35,36 @@ export class CdkApiDeviceStack extends cdk.Stack {
     usagePlan.addApiKey(apiKey);
 
     //creating lambda functions
-    const deviceLambda = new cdk.aws_lambda_nodejs.NodejsFunction(this, 'deviceLambda',{
-      entry: 'resources/endpoints/devices.ts',
+    const profileLambda = new cdk.aws_lambda_nodejs.NodejsFunction(this, 'profileLambda',{
+      entry: 'resources/endpoints/profile.ts',
       handler: 'handler',
       environment: {
-        DEVICE_TABLE: deviceTable.tableName,
+        USER_TABLE: userTable.tableName,
       },
     });
 
     //granting permissions to lambda functions
-    deviceTable.grantReadWriteData(deviceLambda);
+    userTable.grantReadWriteData(profileLambda);
 
     //creating resources
-    const devices = api.root.addResource('devices');
-    devices.addResource('{warehouse_id}');
+    const profile = api.root.addResource('profiles');
 
     //integrating lambda functions with api gateway
-    const deviceIntegration = new cdk.aws_apigateway.LambdaIntegration(deviceLambda);
+    const profileIntegration = new cdk.aws_apigateway.LambdaIntegration(profileLambda);
 
     //adding methods to resources
-    devices.addMethod('GET', deviceIntegration, {
+    profile.addMethod('GET', profileIntegration, {
       apiKeyRequired: true,
     });
-    devices.addMethod('POST', deviceIntegration, {
+    profile.addMethod('POST', profileIntegration, {
       apiKeyRequired: true,
     });
 
     new cdk.CfnOutput(this, 'API Key ID', {
       value: apiKey.keyId,
     });
+
   }
 }
+
+

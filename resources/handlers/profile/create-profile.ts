@@ -1,5 +1,5 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { PutCommand } from "@aws-sdk/lib-dynamodb";
+import { PutCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { IPost } from "../../../types";
 
 const dynamodb = new DynamoDBClient({});
@@ -10,7 +10,7 @@ const headers = {
   "Access-Control-Allow-Methods": "OPTIONS,GET,POST",
 };
 
-export async function create(body: string | null) {
+export async function createUser(body: string | null) {
   // If no body, return an error
   if (!body) {
     return {
@@ -22,32 +22,33 @@ export async function create(body: string | null) {
 
   // Parse the body
   const bodyParsed = JSON.parse(body) as IPost;
-  const {
-    warehouse_id,
-    device_id,
-    connectivity_status,
-    correctness_status,
-    is_deleted,
-  } = bodyParsed;
+  const { user_type, user_name, phone_no, name, email, username, password } =
+    bodyParsed;
 
-  // Create the post in the device table
-  const devicePutParams = new PutCommand({
-    TableName: process.env.DEVICE_TABLE,
+  const user_id =
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15);
+    
+  // Create the user in the user table
+  const userPutParams = new PutCommand({
+    TableName: process.env.USER_TABLE,
     Item: {
-      warehouse_id: warehouse_id,
-      device_id: device_id,
-      connectivity_status: connectivity_status,
-      correctness_status: correctness_status,
-      is_deleted: is_deleted,
+      user_id: user_id,
+      user_type: user_type,
+      phone_no: phone_no,
+      name: name,
+      email: email,
+      username: username,
+      password: password,
     },
   });
 
   try {
-    await dynamodb.send(devicePutParams);
+    await dynamodb.send(userPutParams);
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "Device data inserted successfully" }),
+      body: JSON.stringify({ message: "User data inserted successfully" }),
       headers,
     };
   } catch (error) {
@@ -56,7 +57,7 @@ export async function create(body: string | null) {
     return {
       statusCode: 500,
       body: JSON.stringify({
-        message: "Could not insert device data",
+        message: "Could not insert user data",
       }),
       headers,
     };

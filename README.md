@@ -6,7 +6,7 @@ cdk deploy<br>
 
 Save the apikey and url in a local file.<br>
 
-run the command - aws apigateway get-api-key --api-key mdft9w7rve --include-value<br> 
+run the command - aws apigateway get-api-key --api-key mdft9w7rve --include-value <br>
 where instead of --api-key give your apikey<br>
 
 Save the output of this command in a local file.<br>
@@ -14,6 +14,6 @@ Open Postman and run the requests using header x-api-key with value as given in 
 
 API endpoints:<br>
 
-/devices - for getting and creating device data<br>
+/profiles - for creating and getting the user profiles<br>
 
 cdk destroy to destroy the stack<br>

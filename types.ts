@@ -1,7 +1,9 @@
 export interface IPost {
-    warehouse_id: string;
-    device_id: string;
-    connectivity_status: string;
-    correctness_status: string;
-    is_deleted: boolean;
+  user_type: string;  
+  user_name: string;
+  phone_no: string;
+  name: string;
+  email: string;
+  username: string;
+  password: string;
   }
