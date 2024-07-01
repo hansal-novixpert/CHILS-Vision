@@ -53,6 +53,7 @@ export async function notifyInsert(body: string | null) {
         warehouse_id: warehouse_id,
         video_id: video_id,
         item_id: item_id,
+        item_name: item_name,
         item_count: item_count,
         timestamp: timestamp,
         status: status,

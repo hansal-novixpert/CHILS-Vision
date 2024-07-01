@@ -1,6 +1,6 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import { getBatch } from '../handlers/jobs/get-jobs';
-import { updateOne } from '../handlers/jobs/update-one';
+import { getBatch } from '../handlers/batches/get-batch';
+import { updateOne } from '../handlers/batches/update-one';
 
 const headers = {
   'Content-Type': 'application/json',

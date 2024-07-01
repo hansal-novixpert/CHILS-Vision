@@ -58,11 +58,11 @@ export class CdkApiOperatorStack extends cdk.Stack {
     usagePlan.addApiKey(apiKey);
 
     //creating lambda functions
-    const jobsLambda = new cdk.aws_lambda_nodejs.NodejsFunction(
+    const batchesLambda = new cdk.aws_lambda_nodejs.NodejsFunction(
       this,
-      "jobsLambda",
+      "batchesLambda",
       {
-        entry: "resources/endpoints/jobs.ts",
+        entry: "resources/endpoints/batches.ts",
         handler: "handler",
         environment: {
           EVENTS_TABLE: eventsTable.tableName,
@@ -86,30 +86,30 @@ export class CdkApiOperatorStack extends cdk.Stack {
     );
 
     //granting permissions to lambda functions
-    eventsTable.grantReadWriteData(jobsLambda);
-    inventoryTable.grantReadWriteData(jobsLambda);
-    reviewTable.grantReadWriteData(jobsLambda);
+    eventsTable.grantReadWriteData(batchesLambda);
+    inventoryTable.grantReadWriteData(batchesLambda);
+    reviewTable.grantReadWriteData(batchesLambda);
     reviewTable.grantReadWriteData(notifyLambda);
     eventsTable.grantReadWriteData(notifyLambda);
 
     //creating resources
-    const jobs = api.root.addResource("jobs");
+    const batches = api.root.addResource("batches");
     const notify = api.root.addResource("notify");
     const notifyWarehouse = notify.addResource("{warehouse_id}");
 
     //integrating lambda functions with api gateway
-    const jobsIntegration = new cdk.aws_apigateway.LambdaIntegration(
-      jobsLambda
+    const batchesIntegration = new cdk.aws_apigateway.LambdaIntegration(
+      batchesLambda
     );
     const notifyIntegration = new cdk.aws_apigateway.LambdaIntegration(
       notifyLambda
     );
 
     //adding methods to resources
-    jobs.addMethod("GET", jobsIntegration, {
+    batches.addMethod("GET", batchesIntegration, {
       apiKeyRequired: true,
     });
-    jobs.addMethod("POST", jobsIntegration, {
+    batches.addMethod("POST", batchesIntegration, {
       apiKeyRequired: true,
     });
 

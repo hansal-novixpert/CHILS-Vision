@@ -9,7 +9,7 @@ const headers = {
   'Access-Control-Allow-Headers': 'Content-Type,Authorization',
   'Access-Control-Allow-Methods': 'OPTIONS,GET,POST'
 };
-
+// Define the function to fetch a few items
 export async function getBatch(): Promise<{ statusCode: number; body: string; headers: Record<string, string> }> {
   const N = 2; // Number of items to retrieve
   let items: Record<string, any>[] = [];
@@ -21,18 +21,21 @@ export async function getBatch(): Promise<{ statusCode: number; body: string; he
       const scanParams: ScanCommandInput = {
         TableName: process.env.REVIEW_TABLE,
         FilterExpression: 'attribute_not_exists(user_id)', // Filter for items without 'user_id'
-        Limit: N - items.length, 
-        ExclusiveStartKey: lastEvaluatedKey 
+        Limit: N - items.length, // Fetch only the remaining number of items needed
+        ExclusiveStartKey: lastEvaluatedKey // Start from the last evaluated key if pagination is needed
       };
 
+      // Execute the scan command
       const result: ScanCommandOutput = await dynamodb.send(new ScanCommand(scanParams));
 
+      // Add the retrieved items to our array
       items = items.concat(result.Items || []);
 
       // Update the last evaluated key for pagination
       lastEvaluatedKey = result.LastEvaluatedKey;
     } while (lastEvaluatedKey && items.length < N);
 
+    // Return the result with CORS headers
     return {
       statusCode: 200,
       body: JSON.stringify(items),
