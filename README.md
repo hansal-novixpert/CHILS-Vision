@@ -1,18 +1,18 @@
-For running the cdk project use:\\
+For running the cdk project use:<br>
 
-cdk synth\\
-cdk bootstrap\\
-cdk deploy\\
+cdk synth<br>
+cdk bootstrap<br>
+cdk deploy<br>
 
-Save the apikey and url in a local file.\\
+Save the apikey and url in a local file.<br>
 
-run the command - aws apigateway get-api-key --api-key mdft9w7rve --include-value \\
-where instead of mdft9w7rve give your apikey\\
+run the command - aws apigateway get-api-key --api-key mdft9w7rve --include-value <br>
+where instead of mdft9w7rve give your apikey<br>
 
-Save the output of this command in a local file.\\
-Open Postman and run the requests using header x-api-key with value as given in the value field from the output of the command.\\
+Save the output of this command in a local file.<br>
+Open Postman and run the requests using header x-api-key with value as given in the value field from the output of the command.<br>
 
-API endpoints:\\
+API endpoints:<br>
 
-/batches - for allocation of jobs to operators\\
-/notify - for notifying managers and inserting notifications by the operators\\
+/batches - for allocation of jobs to operators<br>
+/notify - for notifying managers and inserting notifications by the operators<br>
