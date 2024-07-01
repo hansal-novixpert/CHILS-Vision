@@ -1,6 +1,6 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import { getBatch } from '../handlers/batches/get-batch';
-import { updateOne } from '../handlers/batches/update-one';
+import { getDevices } from '../handlers/devices/get-device';
+import { create } from '../handlers/devices/create';
 
 const headers = {
   'Content-Type': 'application/json',
@@ -14,9 +14,17 @@ export const handler = async (event: APIGatewayProxyEvent) => {
     // Handle different HTTP methods
     switch (event.httpMethod) {
       case 'GET':
-        return await getBatch();
+        const warehouse_id = event.queryStringParameters?.warehouse_id;
+        if (!warehouse_id) {
+          return {
+            statusCode: 400,
+            body: JSON.stringify({ message: 'Missing warehouse_id' }),
+            headers,
+          };
+        }
+        return await getDevices({warehouse_id});
       case 'POST':
-        return await updateOne(event.body);
+        return await create(event.body);
       default:
         return {
           statusCode: 400,

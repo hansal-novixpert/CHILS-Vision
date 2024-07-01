@@ -1,10 +1,7 @@
 export interface IPost {
-  video_id: string;
-  warehouse_id: string;
-  user_id: string;
-  timestamp: string;
-  item_id: string;
-  item_name: string;
-  item_count: number;
-  flagvalue: number;
-}
+    warehouse_id: string;
+    device_id: string;
+    connectivity_status: string;
+    correctness_status: string;
+    is_deleted: boolean;
+  }
