@@ -11,7 +11,7 @@ const { Content, Sider } = Layout;
 const AdminEvents = () => {
   return (
     <Layout>
-      <Navbar username={"Pranil"} profilePic={logo} />
+      <Navbar username={"Novixpert"} profilePic={logo} />
       <Layout>
         <Sider style={{ background: "#099B82" }}>
           <AdminSidebar userType={"Admin"} />

@@ -12,7 +12,7 @@ const { Content, Sider } = Layout;
 const OwnerCategory = () => {
   return (
     <Layout>
-      <Navbar username={"Pranil"} profilePic={logo} />
+      <Navbar username={"Novixpert"} profilePic={logo} />
       <Layout>
         <Sider style={{ background: "#099B82" }}>
           <OwnerSidebar userType={"Owner"} />

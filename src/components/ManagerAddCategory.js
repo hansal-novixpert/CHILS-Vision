@@ -21,6 +21,9 @@ const ManagerAddCategory = () => {
         headers: {
           'Content-Type': 'application/json',
           'x-api-key': `${apiKey}`, // Add Authorization header if needed
+          // "Access-Control-Allow-Origin": "*",
+          // "Access-Control-Allow-Methods": "OPTIONS,GET,POST",
+          // "Access-Control-Allow-Headers": "Content-Type,Authorization",
         },
       });
 
@@ -28,11 +31,13 @@ const ManagerAddCategory = () => {
         message.success('Category added successfully!');
         form.resetFields(); // Reset form fields after successful submission
       } else {
+        
         message.error('Failed to add category.');
       }
     } catch (error) {
+      
       console.error('API call error:', error);
-      message.success('Category added successfully!');
+      message.error('Category couldn\'t be added!');
     }
   };
 
