@@ -3,23 +3,25 @@ import "./App.css";
 import { Layout } from "antd";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
-import ManagerDashboard from "./components/ManagerDashboard";
-import ManagerCategory from "./components/ManagerCategory";
-import ManagerInventory from "./components/ManagerInventory";
-import ManagerNotification from "./components/ManagerNotification";
-import OwnerDashboard from "./components/OwnerDashboard";
-import OwnerInventory from "./components/OwnerInventory";
-import OwnerCategory from "./components/OwnerCategory";
-import AdminDashboard from "./components/AdminDashboard";
-import OperatorDashboard from "./components/OperatorDashboard";
-import OperatorJobs from "./components/OperatorJobs";
-import OperatorEarnings from "./components/OperatorEarnings";
-import AdminEvents from "./components/AdminEvents";
-import AdminReviews from "./components/AdminReviews";
-import AdminGetUsers from "./components/AdminGetUsers";
-import OwnerManagers from "./components/OwnerManagers";
+import ManagerDashboard from "./components/Manager/ManagerDashboard";
+import ManagerCategory from "./components/Manager/ManagerCategory";
+import ManagerInventory from "./components/Manager/ManagerInventory";
+import ManagerNotification from "./components/Manager/ManagerNotification";
+import OwnerDashboard from "./components/Owner/OwnerDashboard";
+import OwnerInventory from "./components/Owner/OwnerInventory";
+import OwnerCategory from "./components/Owner/OwnerCategory";
+import AdminDashboard from "./components/Admin/AdminDashboard";
+import OperatorDashboard from "./components/Operator/OperatorDashboard";
+import OperatorJobs from "./components/Operator/OperatorJobs";
+import OperatorEarnings from "./components/Operator/OperatorEarnings";
+import AdminEvents from "./components/Admin/AdminEvents";
+import AdminReviews from "./components/Admin/AdminReviews";
+import AdminGetUsers from "./components/Admin/AdminGetUsers";
+import OwnerManagers from "./components/Owner/OwnerManagers";
 
 const { Footer } = Layout;
+
+
 
 function App() {
   return (
